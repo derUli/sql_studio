@@ -1,0 +1,6 @@
+dist
+work
+.buildpath
+.settings
+*#
+.project

@@ -1,0 +1,7 @@
+{
+	"id": "sql_studio",
+	"version": "1.0",
+	"description": "SQL Management Tool for UliCMS",
+	"categories": [],
+	"compatible_from": "2019.1.4"
+}
