@@ -59,6 +59,7 @@ echo UliCMS\HTML\Input::TextArea("sql_code", $sql, 10, 80, array(
 </div>
 <?php echo ModuleHelper::endForm();?>
 <?php
+BackendHelper::enqueueEditorScripts();
 enqueueScriptFile(ModuleHelper::buildRessourcePath("sql_studio", "js/backend.js"));
 combinedScriptHtml();
 ?>
