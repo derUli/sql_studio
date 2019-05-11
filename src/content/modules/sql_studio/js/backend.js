@@ -4,8 +4,9 @@ $(function() {
 				event.preventDefault();
 				var sql = $(this).data("sql");
 				var execute = $(this).data("execute");
-				$("#sql_code").next('.CodeMirror').get(0).CodeMirror.getDoc()
-						.setValue(sql);
+				var editor = $("#sql_code").next('.CodeMirror').get(0).CodeMirror;
+				editor.getDoc().setValue(sql);
+				editor.save();
 				if (execute) {
 					$("#btn-execute").click();
 				}
@@ -14,9 +15,10 @@ $(function() {
 	$("#btn-execute").click(
 			function(event) {
 				event.preventDefault()
-				$("#sql_code").text(
-						$("#sql_code").next('.CodeMirror').get(0).CodeMirror
-								.getDoc().getValue())
+				
+				var editor = $("#sql_code").next('.CodeMirror').get(0).CodeMirror
+				editor.save();
+				$("#sql_code").text(editor.getDoc().getValue())
 				$("#result-spinner").show();
 				$("#result-data").hide();
 				var form = $(this).closest("form");
@@ -36,7 +38,7 @@ $(function() {
 					},
 					error : function(jqXHR, exception) {
 						if (jqXHR.status === 0) {
-							bootbox.alert('Not connect.\n Verify Network.');
+							bootbox.alert('Not connected.\n Verify Network.');
 						} else if (jqXHR.status == 401) {
 							bootbox.alert('Unauthorizend. [401]');
 						} else if (jqXHR.status == 403) {
