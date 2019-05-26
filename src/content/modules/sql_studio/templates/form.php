@@ -1,5 +1,6 @@
 <?php
 use UliCMS\Security\PermissionChecker;
+use UliCMS\Constants\RequestMethod;
 
 $sql = "";
 $execute_select_statements = (Settings::get("sql_studio/table_name_onclick_action") == "generate_and_execute_select_statement");
