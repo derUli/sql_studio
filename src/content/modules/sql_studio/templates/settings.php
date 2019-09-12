@@ -25,7 +25,7 @@ echo UliCMS\HTML\Input::SingleSelect("table_name_onclick_action", $table_name_on
 <div class="form-group">
 	<div class="checkbox">
 		<label>
-<?php echo UliCMS\HTML\Input::CheckBox("replace_placeholders", $replace_placeholders, "1");?>
+<?php echo UliCMS\HTML\Input::CheckBox("replace_placeholders", boolval($replace_placeholders), "1");?>
 <?php translate("replace_placeholders");?></label>
 	</div>
 </div>
