@@ -8,18 +8,18 @@ class SqlUtils
     public function queryToStatements($sql_query)
     {
         $sql_query = $this->removeRemarks($sql_query);
-        if (! str_contains(";", $sql_query)) {
+        if (! str_contains($sql_query, ";")) {
             $sql_query .= ";";
         }
         $sql_query = $this->splitSqlFile($sql_query, ';');
         
+        $sql_query = array_filter($sql_query);
         return $sql_query;
     }
 
     private function removeRemarks($sql)
     {
-        $lines = explode("
-", $sql);
+        $lines = explode("\n", $sql);
         
         $sql = "";
         
@@ -29,11 +29,9 @@ class SqlUtils
         for ($i = 0; $i < $linecount; $i ++) {
             if (($i != ($linecount - 1)) || (strlen($lines[$i]) > 0)) {
                 if (isset($lines[$i][0]) && $lines[$i][0] != "#") {
-                    $output .= $lines[$i] . "
-";
+                    $output .= $lines[$i] . "\n";
                 } else {
-                    $output .= "
-";
+                    $output .= "\n";
                 }
                 $lines[$i] = "";
             }
@@ -71,7 +69,6 @@ class SqlUtils
                     for ($j = $i + 1; (! $complete_stmt && ($j < $token_count)); $j ++) {
                         $total_quotes = preg_match_all("/'/", $tokens[$j], $matches);
                         $escaped_quotes = preg_match_all("/(?<!\\\\)(\\\\\\\\)*\\\\'/", $tokens[$j], $matches);
-                        
                         $unescaped_quotes = $total_quotes - $escaped_quotes;
                         
                         if (($unescaped_quotes % 2) == 1) {
@@ -90,7 +87,6 @@ class SqlUtils
                 }
             }
         }
-        
         return $output;
     }
 }
