@@ -17,11 +17,12 @@ class SqlUtilsTest extends \PHPUnit\Framework\TestCase
     {
         $utils = new SqlUtils();
         $statements = $utils->queryToStatements(
-            "#foo\nselect foo from bar; select hello from world;"
+            "#foo\nselect foo from bar; select hello from world;foo"
         );
 
-        $this->assertCount(2, $statements);
         $this->assertEquals("\nselect foo from bar", $statements[0]);
         $this->assertEquals(" select hello from world", $statements[1]);
+        $this->assertEquals("foo", $statements[2]);
+        $this->assertCount(3, $statements);
     }
 }
