@@ -4,7 +4,6 @@ use UliCMS\HTML\Alert;
 
 class SqlStudioController extends MainClass
 {
-
     const MODULE_NAME = "sql_studio";
 
     public function settings()
@@ -17,16 +16,14 @@ class SqlStudioController extends MainClass
     {
         return "SQL Studio";
     }
-
-    public function getSettingsLinkText()
+    
+    public function adminHeadStylesFilter($styles)
     {
-        return get_translation("open");
-    }
-
-    public function adminHead()
-    {
-        enqueueStylesheet(ModuleHelper::buildModuleRessourcePath(self::MODULE_NAME, "css/style.css"));
-        combinedStylesheetHtml();
+        $styles[] = ModuleHelper::buildModuleRessourcePath(
+            self::MODULE_NAME,
+            "css/style.css"
+        );
+        return $styles;
     }
 
     public function saveSettings()
@@ -55,13 +52,12 @@ class SqlStudioController extends MainClass
         $statements = $sqlUtils->queryToStatements($sql);
         
         foreach ($statements as $statement) {
-            try{
+            try {
                 $result = @Database::query($statement, $replacePlaceholders);
                 if (! $result || Database::getError()) {
                     ViewBag::set("error", Database::getError());
                     $html .= Template::executeModuleTemplate(self::MODULE_NAME, "error.php");
-                } else if (is_bool($result) and $result) {
-                    
+                } elseif (is_bool($result) and $result) {
                     $affectedRows = Database::getAffectedRows();
                     ViewBag::set("success", get_translation("x_rows_affected", array(
                         "%x" => $affectedRows
@@ -72,11 +68,10 @@ class SqlStudioController extends MainClass
                     // Mock, TODO: Split sql statements, show multiple tables
                     $html .= Template::executeModuleTemplate(self::MODULE_NAME, "table.php");
                 }
-        } catch(SqlException $e){
-            $html .= Alert::danger($e->getMessage());
+            } catch (SqlException $e) {
+                $html .= Alert::danger($e->getMessage());
+            }
         }
-        
-    }
         HTMLResult($html);
-}
+    }
 }

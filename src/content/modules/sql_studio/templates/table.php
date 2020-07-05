@@ -2,7 +2,7 @@
 <table class="tablesorter">
 	<thead>
 		<tr>
-    <?php while($field = Database::fetchField($result)){?>
+    <?php while ($field = Database::fetchField($result)) {?>
     <th><?php esc($field->name);?></th>
     <?php }?>
 		</tr>
@@ -17,10 +17,10 @@ while ($row = Database::fetchRow($result)) {
     
     foreach ($row as $cell) {
         ?>
-			    <td><?php echo nl2br(_esc(!is_null($cell) ? $cell : "[NULL]"));?></td>
+			    <td><?php echo nl2br(_esc(!is_null($cell) ? $cell : "[NULL]")); ?></td>
 			    <?php
-    }
-    ?>
+    } ?>
 		</tr>
-  <?php } ?></tbody>
+  <?php
+} ?></tbody>
 </table>

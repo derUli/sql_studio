@@ -16,7 +16,7 @@ echo ModuleHelper::buildMethodCallForm(SqlStudioController::class, "executeSql",
 		<div class="tables">
 			<strong><?php translate("tables");?></strong>
 			<ul class="list-unstyled">
-			<?php foreach(ViewBag::get("tables") as $table){?>
+			<?php foreach (ViewBag::get("tables") as $table) {?>
 		<li><a href="#"
 					data-sql="select * from <?php esc(Database::escapeName($table));?>;"
 					data-execute="<?php echo strbool($execute_select_statements);?>"
@@ -41,7 +41,7 @@ echo UliCMS\HTML\Input::TextArea("sql_code", $sql, 10, 80, array(
 			<button type="button" id="btn-execute" class="btn btn-primary">
 				<i class="fa fa-bolt" aria-hidden="true"></i>
 			 <?php translate("execute");?></button>
-<?php if($permissionChecker->hasPermission("sql_studio_settings")){?>
+<?php if ($permissionChecker->hasPermission("sql_studio_settings")) {?>
 			<a
 				href="<?php echo ModuleHelper::buildActionURL("sql_studio_settings")?>"
 				class="pull-right btn btn-default"> <i class="fa fa-wrench"

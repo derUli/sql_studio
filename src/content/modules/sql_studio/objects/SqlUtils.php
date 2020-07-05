@@ -4,7 +4,6 @@ set_time_limit(0);
 
 class SqlUtils
 {
-
     public function queryToStatements($sql_query)
     {
         $sql_query = $this->removeRemarks($sql_query);
